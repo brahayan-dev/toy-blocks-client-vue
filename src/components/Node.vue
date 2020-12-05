@@ -19,12 +19,27 @@
       </div>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
-      <span>Here goes the content</span>
+      <div v-if="getCurrentBlocks.hasError" style="color: red;" class="accordion-block-text">
+        NO CONTENT
+      </div>
+      <div v-else>
+        <v-alert color="blue-grey lighten-5" v-for="item in getCurrentBlocks.data" :key="item.id">
+          <span class="accordion-id-text">
+            {{ ('00' + `${item.id}`).slice(-3) }}
+          </span>
+          <br>
+          <span class="accordion-block-text">
+            {{ item.attributes.data }}
+          </span>
+        </v-alert>
+      </div>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: 'node',
   props: {
@@ -38,6 +53,10 @@ export default {
   data: () => ({
   }),
   computed: {
+    ...mapGetters(['getBlocks']),
+    getCurrentBlocks() {
+      return this.getBlocks.find(item => item.url === this.node.url);
+    },
     getColor() {
       let badgeColor = '#Eb5757';
 
@@ -90,6 +109,28 @@ export default {
     font-size: 10px;
     line-height: 16px;
     letter-spacing: 1.5px;
+    color: #263238;
+  }
+
+  .accordion-id-text {
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 1.5px;
+    color: #304FFE;
+  }
+
+  .accordion-block-text {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+
+    /* identical to box height, or 143% */
+    letter-spacing: 0.25px;
+
+    /* Dark Color */
     color: #263238;
   }
 </style>

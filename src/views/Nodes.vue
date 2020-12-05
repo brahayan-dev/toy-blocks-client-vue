@@ -18,7 +18,7 @@
 
 <script>
 import Node from '../components/Node';
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Nodes',
@@ -29,13 +29,14 @@ export default {
     data: []
   }),
   computed: {
-    ...mapGetters(['getNodes']),
+    ...mapGetters(['getNodes', 'getBlocks']),
   },
   methods: {
-    ...mapActions(['getAllNodes']),
+    ...mapActions(['getAllNodes', 'getAllBlocks']),
   },
   async mounted() {
     await this.getAllNodes(this.getNodes);
+    await this.getAllBlocks(this.getBlocks);
   },
 }
 </script>

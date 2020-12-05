@@ -13,7 +13,10 @@ export default new Vuex.Store({
   getters: {
     getNodes : state => {
       return state.nodes.list;
-    }
+    },
+    getBlocks: state => {
+      return state.nodes.blocks;
+    },
   },
   mutations: mutations,
   actions: actions,
